@@ -1,8 +1,10 @@
-﻿namespace WildfireSimulation.Models
+﻿using WildfireSimulation.Models;
+
+namespace WildfireSimulation.DTOs
 {
     public class UserWeatherRequest
     {
-        public List<LightningEvent> LightningEvents { get; set; }
+        public LightningEvent LightningEvent { get; set; }
         public bool RandomLighting { get; set; }
         public WindEvent WindEvent { get; set; }
         public bool RandomWind { get; set; }
