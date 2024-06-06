@@ -8,9 +8,52 @@ namespace WildfireSimulation.Models
         public double AgentOnFirePercentage { get; set; }
         public FireStateEnum FireState { get; set; }
         public double WaterPercentage { get; set; }
-        public double FireSpreadRate { get; set; }
+        //public double FireSpreadRate { get; set; }
         public double PercentageOfFuel { get; set; }
-        public double FuelAmount { get; set; }
+
+        /// <summary>
+        /// Returns the default values for the 
+        /// </summary>
+        public TerrainAgent(TerrainTypesEnum? terrain)
+        {
+            AgentOnFirePercentage = 0;
+            FireState = FireStateEnum.NoFire;
+            WaterPercentage = 0.0;
+            
+            switch (terrain){
+                case TerrainTypesEnum.Sand:
+                    TerrainType = TerrainTypesEnum.Sand;
+                    PercentageOfFuel = 0.5;
+                    break;
+                case TerrainTypesEnum.Concrete:
+                    TerrainType = TerrainTypesEnum.Concrete;
+                    PercentageOfFuel = 0.0;
+                    break;
+                case TerrainTypesEnum.WetFlammableFuel:
+                    TerrainType = TerrainTypesEnum.WetFlammableFuel;
+                    PercentageOfFuel = 1.0;
+                    WaterPercentage = 0.5;
+                    break;
+                case TerrainTypesEnum.DryFlammableFuel:
+                    TerrainType = TerrainTypesEnum.DryFlammableFuel;
+                    PercentageOfFuel = 1.0;
+                    break;
+                case TerrainTypesEnum.WetNonflammableFuel:
+                    TerrainType = TerrainTypesEnum.WetNonflammableFuel;
+                    PercentageOfFuel = 0.75;
+                    WaterPercentage = 0.5;
+                    break;
+                case TerrainTypesEnum.DryNonflammableFuel:
+                    TerrainType = TerrainTypesEnum.DryNonflammableFuel;
+                    PercentageOfFuel = 0.75;
+                    break;
+                case TerrainTypesEnum.Water:
+                    TerrainType = TerrainTypesEnum.Water;
+                    PercentageOfFuel = 0.0;
+                    WaterPercentage = 1.0;
+                    break;
+            }
+        }
 
         /// <summary>
         /// Returns the percentage chance of catching fire to an adjacent agent;
@@ -18,10 +61,10 @@ namespace WildfireSimulation.Models
         /// <returns></returns>
         public double SpreadFireToAdjacentAgent()
         {
-            var perc = AgentOnFirePercentage * FuelAmount;
+            var perc = AgentOnFirePercentage * PercentageOfFuel;
             if (perc >= WaterPercentage)
             {
-                perc = perc - WaterPercentage;
+                perc -= WaterPercentage;
             }
             else 
             {
@@ -42,6 +85,7 @@ namespace WildfireSimulation.Models
             {FireStateEnum.Decay, -0.2 }
         };
 
+
         /// <summary>
         /// Checks the conditions required to update the fire state based on fuel and percentage on fire
         /// </summary>
@@ -56,11 +100,11 @@ namespace WildfireSimulation.Models
                 FireState = FireStateEnum.FullyDeveloped;
             }
 
-            if (FuelAmount == 0)
+            if (PercentageOfFuel == 0)
             {
                 FireState = FireStateEnum.NoFire;
             }
-            else if (FuelAmount <= 0.4)
+            else if (PercentageOfFuel <= 0.4 && FireState != FireStateEnum.NoFire)
             {
                 FireState = FireStateEnum.Decay;
             }
@@ -73,13 +117,13 @@ namespace WildfireSimulation.Models
         /// </summary>
         public void FuelAmountUpdate()
         {
-            if (AgentOnFirePercentage * FireSpreadRate > FuelAmount)
+            if (AgentOnFirePercentage * FireSpreadRateDictionary[FireState] > PercentageOfFuel)
             {
-                FuelAmount = 0;
+                PercentageOfFuel = 0;
             }
             else
             {
-                FuelAmount -=  AgentOnFirePercentage * Math.Abs(AgentOnFirePercentage);
+                PercentageOfFuel -=  AgentOnFirePercentage * Math.Abs(AgentOnFirePercentage);
 
             }
         }
@@ -89,17 +133,17 @@ namespace WildfireSimulation.Models
         /// </summary>
         public void AgentOnFireUpdate()
         {
-            if(FuelAmount + FireSpreadRateDictionary[FireState] > 1)
+            if(PercentageOfFuel + FireSpreadRateDictionary[FireState] > 1)
             {
-                FuelAmount = 1;
+                PercentageOfFuel = 1;
             }
-            else if (FuelAmount + FireSpreadRateDictionary[FireState] < 0)
+            else if (PercentageOfFuel + FireSpreadRateDictionary[FireState] < 0)
             {
-                FuelAmount = 0;
+                PercentageOfFuel = 0;
             }
             else
             {
-                FuelAmount += FireSpreadRateDictionary[FireState];
+                PercentageOfFuel += FireSpreadRateDictionary[FireState];
             }
         }
 

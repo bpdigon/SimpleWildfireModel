@@ -15,10 +15,19 @@ namespace WildfireSimulation.Models
         /// <param name="request"></param>
         public void WeatherEvents (UserWeatherRequest request)
         {
+            Random rnd = new Random();
+
             if (request.RandomLighting)
             {
-                var lightning = new LightningEvent();
-                //lightning.Turn 
+                var lightning = new LightningEvent()
+                {
+                    Turn = TurnCount,
+                    xCoordiante = rnd.Next(0, Terrain.Count),
+                    yCoordiante = rnd.Next(0, Terrain[0].Count),
+                    Radius = 1,
+                    UserFlag = false
+                };
+                WeatherHistory.lightningEvents.Add(lightning);
             }
             else
             {
@@ -27,6 +36,13 @@ namespace WildfireSimulation.Models
 
             if (request.RandomRain)
             {
+                var rain = new RainEvent()
+                {
+                    Rainfall = rnd.Next(0, 100) / 1000,
+                    Turn = TurnCount,
+                    UserFlag = false
+                };
+                WeatherHistory.RainEvents.Add(rain);
 
             }
             else
@@ -36,7 +52,34 @@ namespace WildfireSimulation.Models
 
             if (request.RandomWind)
             {
-
+                var direction = rnd.Next(0, 4);
+                var windSpeed = rnd.Next(0, 25);
+                var wind = new WindEvent()
+                {
+                    WindSpeed = windSpeed,
+                    Turn = TurnCount,
+                    UserFlag = false
+                };
+                switch (direction)
+                {
+                    case 0:
+                        wind.Direction = DirectionEnum.None;
+                        wind.WindSpeed = 0;
+                        break;
+                    case 1:
+                        wind.Direction = DirectionEnum.North;
+                        break;
+                    case 2:
+                        wind.Direction = DirectionEnum.West;
+                        break;
+                    case 3:
+                        wind.Direction = DirectionEnum.South;
+                        break;
+                    case 4:
+                        wind.Direction = DirectionEnum.East;
+                        break;
+                }
+                WeatherHistory.WindEvents.Add(wind);
             }
             else
             {
@@ -53,37 +96,70 @@ namespace WildfireSimulation.Models
 
             //check for lightning
             //update weather audit so that the latest entry is valid
-            
+            if (!WeatherHistory.lightningEvents[TurnCount].EmptyEventFlag)
+            {
+                Terrain[WeatherHistory.lightningEvents[TurnCount].xCoordiante][WeatherHistory.lightningEvents[TurnCount].yCoordiante].FireIgnition();
+            }
 
             for (int x = 0; x < Terrain.Count; x++)
             {
                 for (int y = 0; y < Terrain[x].Count; y++)
                 {
                     var fireSpreadProbability = Terrain[x][y].SpreadFireToAdjacentAgent();
-                    if (WeatherHistory.WindEvents[TurnCount].Direction == DirectionEnum.None)
+                    switch (WeatherHistory.WindEvents[TurnCount].Direction)
                     {
-                        //above
-                        if(rnd.NextDouble() > fireSpreadProbability)
-                        {
-                            Terrain[x][y + 1].FireIgnition();
-                        }
-                        //right
-                        if (rnd.NextDouble() > fireSpreadProbability)
-                        {
-                            Terrain[x + 1][y].FireIgnition();
-                        }
-                        //down
-                        if (rnd.NextDouble() > fireSpreadProbability)
-                        {
-                            Terrain[x][y - 1].FireIgnition();
-                        }
-                        //left
-                        if (rnd.NextDouble() > fireSpreadProbability)
-                        {
-                            Terrain[x - 1][y].FireIgnition();
-                        }
+                        case DirectionEnum.None:
+                            //above
+                            if (rnd.NextDouble() > fireSpreadProbability)
+                            {
+                                Terrain[x][y + 1].FireIgnition();
+                            }
+                            //right
+                            if (rnd.NextDouble() > fireSpreadProbability)
+                            {
+                                Terrain[x + 1][y].FireIgnition();
+                            }
+                            //down
+                            if (rnd.NextDouble() > fireSpreadProbability)
+                            {
+                                Terrain[x][y - 1].FireIgnition();
+                            }
+                            //left
+                            if (rnd.NextDouble() > fireSpreadProbability)
+                            {
+                                Terrain[x - 1][y].FireIgnition();
+                            }
+                            break;
+
+                        case DirectionEnum.North:
+                            if (rnd.NextDouble() > fireSpreadProbability)
+                            {
+                                int windDistance = (int)Math.Round((double)WeatherHistory.WindEvents[TurnCount].WindSpeed / 5.0) * 5;
+                                Terrain[x][y + windDistance].FireIgnition();
+                            }
+                            break;
+                        case DirectionEnum.West:
+                            if (rnd.NextDouble() > fireSpreadProbability)
+                            {
+                                int windDistance = (int)Math.Round((double)WeatherHistory.WindEvents[TurnCount].WindSpeed / 5.0) * 5;
+                                Terrain[x + windDistance][y].FireIgnition();
+                            }
+                            break;
+                        case DirectionEnum.South:
+                            if (rnd.NextDouble() > fireSpreadProbability)
+                            {
+                                int windDistance = (int)Math.Round((double)WeatherHistory.WindEvents[TurnCount].WindSpeed / 5.0) * 5;
+                                Terrain[x][y - windDistance].FireIgnition();
+                            }
+                            break;
+                        case DirectionEnum.East:
+                            if (rnd.NextDouble() > fireSpreadProbability)
+                            {
+                                int windDistance = (int)Math.Round((double)WeatherHistory.WindEvents[TurnCount].WindSpeed / 5.0) * 5;
+                                Terrain[x - windDistance][y].FireIgnition();
+                            }
+                            break;
                     }
-                    //add checks for wind, make a switch statement
 
                     Terrain[x][y].FuelAmountUpdate();
                     Terrain[x][y].AgentOnFireUpdate();
