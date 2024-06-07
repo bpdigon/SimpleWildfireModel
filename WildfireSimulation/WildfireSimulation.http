@@ -1,0 +1,6 @@
+@WildfireSimulation_HostAddress = http://localhost:5039
+
+GET {{WildfireSimulation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
