@@ -12,9 +12,9 @@ namespace WildfireSimulation.Models
         public double PercentageOfFuel { get; set; }
 
         /// <summary>
-        /// Returns the default values for the 
+        /// Sets the values for the terrain agent based on the terrain type enum
         /// </summary>
-        public TerrainAgent(TerrainTypesEnum? terrain)
+        public TerrainAgent(TerrainTypesEnum terrain)
         {
             AgentOnFirePercentage = 0;
             FireState = FireStateEnum.NoFire;
@@ -48,6 +48,51 @@ namespace WildfireSimulation.Models
                     PercentageOfFuel = 0.75;
                     break;
                 case TerrainTypesEnum.Water:
+                    TerrainType = TerrainTypesEnum.Water;
+                    PercentageOfFuel = 0.0;
+                    WaterPercentage = 1.0;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Sets the terrain attributes based on an integer that corresponds to the terrain type 
+        /// </summary>
+        public TerrainAgent(int terrainInt)
+        {
+            AgentOnFirePercentage = 0;
+            FireState = FireStateEnum.NoFire;
+            WaterPercentage = 0.0;
+
+            switch (terrainInt)
+            {
+                case 1:
+                    TerrainType = TerrainTypesEnum.Sand;
+                    PercentageOfFuel = 0.5;
+                    break;
+                case 2:
+                    TerrainType = TerrainTypesEnum.Concrete;
+                    PercentageOfFuel = 0.0;
+                    break;
+                case 3:
+                    TerrainType = TerrainTypesEnum.WetFlammableFuel;
+                    PercentageOfFuel = 1.0;
+                    WaterPercentage = 0.5;
+                    break;
+                case 4:
+                    TerrainType = TerrainTypesEnum.DryFlammableFuel;
+                    PercentageOfFuel = 1.0;
+                    break;
+                case 5:
+                    TerrainType = TerrainTypesEnum.WetNonflammableFuel;
+                    PercentageOfFuel = 0.75;
+                    WaterPercentage = 0.5;
+                    break;
+                case 6:
+                    TerrainType = TerrainTypesEnum.DryNonflammableFuel;
+                    PercentageOfFuel = 0.75;
+                    break;
+                case 7:
                     TerrainType = TerrainTypesEnum.Water;
                     PercentageOfFuel = 0.0;
                     WaterPercentage = 1.0;

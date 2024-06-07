@@ -8,6 +8,11 @@ namespace WildfireSimulation.Models
         public WeatherAudit WeatherHistory { get; set; }
         public List<List<TerrainAgent>> Terrain { get; set; }
         public int TurnCount { get; set; }
+        public SimEnvironment()
+        {
+            Terrain = new List<List<TerrainAgent>>();  
+            TurnCount = 0;
+        }
 
         /// <summary>
         /// Updates the history of the weather events based on the user request.

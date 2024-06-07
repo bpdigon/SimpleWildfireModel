@@ -24,5 +24,21 @@ namespace WildfireSimulation.Services
             }
             return env;
         }
+
+        public SimEnvironment GenerateRandomTerrain(int simSize)
+        {
+            Random rnd = new Random();
+            var env = new SimEnvironment();
+            for (int x = 0; x < simSize; x++)
+            {
+                env.Terrain.Add(new List<TerrainAgent>());
+                for (int y = 0; y < simSize; y++)
+                {
+                    env.Terrain[x].Add(new TerrainAgent(rnd.Next(1, 7)));
+                }
+            }
+
+            return env;
+        }
     }
 }
