@@ -6,11 +6,11 @@ namespace WildfireSimulation.Models
     public class SimEnvironment
     {
         public WeatherAudit WeatherHistory { get; set; }
-        public List<List<TerrainAgent>> Terrain { get; set; }
+        public List<List<Terrain>> Terrain { get; set; }
         public int TurnCount { get; set; }
         public SimEnvironment()
         {
-            Terrain = new List<List<TerrainAgent>>();  
+            Terrain = new List<List<Terrain>>();  
             TurnCount = 0;
         }
 

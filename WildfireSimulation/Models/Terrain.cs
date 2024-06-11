@@ -2,7 +2,7 @@
 
 namespace WildfireSimulation.Models
 {
-    public class TerrainAgent
+    public class Terrain
     {
         public TerrainTypesEnum TerrainType { get; set; }
         public double AgentOnFirePercentage { get; set; }
@@ -14,7 +14,7 @@ namespace WildfireSimulation.Models
         /// <summary>
         /// Sets the values for the terrain agent based on the terrain type enum
         /// </summary>
-        public TerrainAgent(TerrainTypesEnum terrain)
+        public Terrain(TerrainTypesEnum terrain)
         {
             AgentOnFirePercentage = 0;
             FireState = FireStateEnum.NoFire;
@@ -58,7 +58,7 @@ namespace WildfireSimulation.Models
         /// <summary>
         /// Sets the terrain attributes based on an integer that corresponds to the terrain type 
         /// </summary>
-        public TerrainAgent(int terrainInt)
+        public Terrain(int terrainInt)
         {
             AgentOnFirePercentage = 0;
             FireState = FireStateEnum.NoFire;

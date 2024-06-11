@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+//credit to Satrio Yamanda: https://codepen.io/yamanda/pen/RpNMaY
+
 @Component({
   selector: 'app-display-fire',
   standalone: true,

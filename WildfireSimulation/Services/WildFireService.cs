@@ -31,10 +31,10 @@ namespace WildfireSimulation.Services
             var env = new SimEnvironment();
             for (int x = 0; x < simSize; x++)
             {
-                env.Terrain.Add(new List<TerrainAgent>());
+                env.Terrain.Add(new List<Terrain>());
                 for (int y = 0; y < simSize; y++)
                 {
-                    env.Terrain[x].Add(new TerrainAgent(rnd.Next(1, 7)));
+                    env.Terrain[x].Add(new Terrain(rnd.Next(1, 7)));
                 }
             }
 
