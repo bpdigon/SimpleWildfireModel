@@ -1,16 +1,24 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { SimEnvironment } from "../models/SimEnvironment";
 import { Observable } from "rxjs";
 
-@Injectable()
-export class WildFireService{
+@Injectable({
+  providedIn: 'root'
+})
+export class WildFireService {
+
     //This is the API's local address so that the UI can connect to it.
-    private readonly url: string = 'localhost:7140/';
+    private readonly url: string = 'https://localhost:7140/api/WildFire';
+
+    httpOptions: any;
 
     Environment: SimEnvironment | undefined;
+    
+    constructor(private readonly http: HttpClient){
 
-    constructor(private readonly http: HttpClient){}
+      this.httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'})}
+    }
 
     //Input is the simEnvironment, leave the turn attribute null
     public putTurn(request: SimEnvironment): Observable<SimEnvironment>{
@@ -23,9 +31,14 @@ export class WildFireService{
     }
 
     //Requires a size for the terrain square to be larger than 0 and not null
-    public putGenerateTerrain(simNum: number): Observable<SimEnvironment>{
-        return this.http.put<SimEnvironment>(`${this.url}/GenerateTerrain`, {params: {simSize: simNum}});
+    public putGenerateTerrain(simNum: number): Observable<any>{
+      console.log("SIOMENUME", simNum);
+        return this.http.put(`${this.url}/GenerateTerrain`, simNum, this.httpOptions);
     }
+
+    // public putGenerateTerrain(simNum: number): Observable<any>{
+    //       return this.http.get('https://localhost:7140/api/WildFire/test');
+    //   }
 
     public setEnvironment(env: SimEnvironment){
         this.Environment = env;
@@ -36,5 +49,4 @@ export class WildFireService{
             return this.Environment;
         }
     }
-
 }

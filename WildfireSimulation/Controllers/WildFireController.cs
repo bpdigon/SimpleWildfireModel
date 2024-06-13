@@ -89,5 +89,14 @@ namespace WildfireSimulation.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("Test")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Test()
+        {
+            return Ok();
+        }
     }
 }

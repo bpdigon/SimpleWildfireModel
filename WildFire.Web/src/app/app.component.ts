@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { DisplayFireComponent } from "./display-fire/display-fire.component";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-root',

@@ -7,5 +7,5 @@ export interface Terrain{
     fireState: FireState;
     waterPercentage: number;
     percentageOfFuel: number;
-
+    terrainColor: string;
 }
