@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { DisplayFireComponent } from "./display-fire/display-fire.component";
 
 @Component({
@@ -11,4 +11,14 @@ import { DisplayFireComponent } from "./display-fire/display-fire.component";
 })
 export class AppComponent {
   title = 'WildFire.Web';
+
+  constructor(private router: Router){}
+  
+  public menuBtnClick(): void{
+    this.router.navigateByUrl('/menu');
+  }
+
+  public homeBtnClick(): void{
+    this.router.navigateByUrl('');
+  }
 }

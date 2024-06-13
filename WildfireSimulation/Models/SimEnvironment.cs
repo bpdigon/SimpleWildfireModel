@@ -166,6 +166,8 @@ namespace WildfireSimulation.Models
                             break;
                     }
 
+                    
+
                     Terrain[x][y].FuelAmountUpdate();
                     Terrain[x][y].AgentOnFireUpdate();
                     Terrain[x][y].FireStateUpdate();

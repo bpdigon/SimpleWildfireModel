@@ -10,6 +10,7 @@ namespace WildfireSimulation.Models
         public double WaterPercentage { get; set; }
         //public double FireSpreadRate { get; set; }
         public double PercentageOfFuel { get; set; }
+        public Terrain() { }
 
         /// <summary>
         /// Sets the values for the terrain agent based on the terrain type enum
@@ -23,7 +24,7 @@ namespace WildfireSimulation.Models
             switch (terrain){
                 case TerrainTypesEnum.Sand:
                     TerrainType = TerrainTypesEnum.Sand;
-                    PercentageOfFuel = 0.5;
+                    PercentageOfFuel = 0.25;
                     break;
                 case TerrainTypesEnum.Concrete:
                     TerrainType = TerrainTypesEnum.Concrete;
@@ -38,13 +39,13 @@ namespace WildfireSimulation.Models
                     TerrainType = TerrainTypesEnum.DryFlammableFuel;
                     PercentageOfFuel = 1.0;
                     break;
-                case TerrainTypesEnum.WetNonflammableFuel:
-                    TerrainType = TerrainTypesEnum.WetNonflammableFuel;
+                case TerrainTypesEnum.WetLessFlammableFuel:
+                    TerrainType = TerrainTypesEnum.WetLessFlammableFuel;
                     PercentageOfFuel = 0.75;
                     WaterPercentage = 0.5;
                     break;
-                case TerrainTypesEnum.DryNonflammableFuel:
-                    TerrainType = TerrainTypesEnum.DryNonflammableFuel;
+                case TerrainTypesEnum.DryLessFlammableFuel:
+                    TerrainType = TerrainTypesEnum.DryLessFlammableFuel;
                     PercentageOfFuel = 0.75;
                     break;
                 case TerrainTypesEnum.Water:
@@ -68,7 +69,7 @@ namespace WildfireSimulation.Models
             {
                 case 1:
                     TerrainType = TerrainTypesEnum.Sand;
-                    PercentageOfFuel = 0.5;
+                    PercentageOfFuel = 0.25;
                     break;
                 case 2:
                     TerrainType = TerrainTypesEnum.Concrete;
@@ -84,12 +85,12 @@ namespace WildfireSimulation.Models
                     PercentageOfFuel = 1.0;
                     break;
                 case 5:
-                    TerrainType = TerrainTypesEnum.WetNonflammableFuel;
+                    TerrainType = TerrainTypesEnum.WetLessFlammableFuel;
                     PercentageOfFuel = 0.75;
                     WaterPercentage = 0.5;
                     break;
                 case 6:
-                    TerrainType = TerrainTypesEnum.DryNonflammableFuel;
+                    TerrainType = TerrainTypesEnum.DryLessFlammableFuel;
                     PercentageOfFuel = 0.75;
                     break;
                 case 7:
@@ -136,7 +137,7 @@ namespace WildfireSimulation.Models
         /// </summary>
         public void FireStateUpdate()
         {
-            if (AgentOnFirePercentage >= 0.25)
+            if (AgentOnFirePercentage >= 0.25 && AgentOnFirePercentage < 0.6)
             {
                 FireState = FireStateEnum.Growth;
             }
@@ -178,17 +179,17 @@ namespace WildfireSimulation.Models
         /// </summary>
         public void AgentOnFireUpdate()
         {
-            if(PercentageOfFuel + FireSpreadRateDictionary[FireState] > 1)
+            if(AgentOnFirePercentage + FireSpreadRateDictionary[FireState] > 1)
             {
-                PercentageOfFuel = 1;
+                AgentOnFirePercentage = 1;
             }
-            else if (PercentageOfFuel + FireSpreadRateDictionary[FireState] < 0)
+            else if (AgentOnFirePercentage + FireSpreadRateDictionary[FireState] < 0)
             {
-                PercentageOfFuel = 0;
+                AgentOnFirePercentage = 0;
             }
             else
             {
-                PercentageOfFuel += FireSpreadRateDictionary[FireState];
+                AgentOnFirePercentage += FireSpreadRateDictionary[FireState];
             }
         }
 
@@ -197,7 +198,10 @@ namespace WildfireSimulation.Models
         /// </summary>
         public void FireIgnition()
         {
-            FireState = FireStateEnum.Ignition;
+            if (PercentageOfFuel > 0 && FireState == FireStateEnum.NoFire)
+            {
+                FireState = FireStateEnum.Ignition;
+            }
         }
 
         /// <summary>

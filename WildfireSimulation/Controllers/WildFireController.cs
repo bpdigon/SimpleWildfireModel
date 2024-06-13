@@ -5,6 +5,8 @@ using WildfireSimulation.Services;
 
 namespace WildfireSimulation.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class WildFireController : ControllerBase
     {
         private readonly WildFireService _service;

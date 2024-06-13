@@ -7,7 +7,7 @@ import { DisplayFireComponent } from './display-fire/display-fire.component';
 
 export const routes: Routes = [
     {
-        path: "*",
+        path: "",
         component: DisplayFireComponent
     },
     {

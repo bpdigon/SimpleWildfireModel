@@ -1,1 +1,8 @@
-<p>generate works!</p>
+<div>
+    <input type="number" ng-model="terrainGenerateSize" name="Terrain Size" step="1" min="0" max="20">
+    <button type="button" class="btn btn-success pull-right" (click)="generateRandomTerrain()"> Generate Random Terrain </button>
+
+</div>
+<div *ngIf="terrainGeneratedFlag">
+    <button type="button" class="btn btn-success pull-right" (click)="simulateBtnClick()"> Simulation Menu </button>
+</div>

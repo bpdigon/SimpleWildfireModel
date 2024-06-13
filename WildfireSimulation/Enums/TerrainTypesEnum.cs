@@ -2,12 +2,12 @@
 {
     public enum TerrainTypesEnum
     {
-        Sand,
+        Sand = 1,
         Concrete,
         WetFlammableFuel,
         DryFlammableFuel,
-        WetNonflammableFuel,
-        DryNonflammableFuel,
+        WetLessFlammableFuel,
+        DryLessFlammableFuel,
         Water
     }
 }

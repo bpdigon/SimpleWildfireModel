@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
+  constructor(private router: Router) {}
 
+  public generateBtnClick(): void{
+    this.router.navigateByUrl('/generateNew');
+  }
 }

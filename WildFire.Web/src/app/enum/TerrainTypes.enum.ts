@@ -3,7 +3,7 @@ export enum TerrainType{
     Concrete,
     WetFlammableFuel,
     DryFlammableFuel,
-    WetNonflammableFuel,
-    DryNonflammableFuel,
+    WetLessFlammableFuel,
+    DryLessFlammableFuel,
     Water
 }
