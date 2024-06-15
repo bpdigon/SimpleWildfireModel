@@ -1,6 +1,4 @@
-<button type="button" class="btn btn-success pull-right" (click)="executeTurn()"> Execute Turn </button>
-
-<table class="environment">
+<!-- <table class="environment">
     <tr *ngFor="let terrainList of env.Terrain; let terrainIndex = index">
         <th *ngFor="let terrain of terrainList.Terrains" (click)="clickTableSpace(terrain)"
         [ngClass]="{'noFire': terrain.FireState === 0,
@@ -8,8 +6,8 @@
             'growth': terrain.FireState === 2,
             'fully-developed': terrain.FireState === 3,
             'decay': terrain.FireState === 4
-        }"> {{getEnumFireState(terrain.FireState)}}
-            <div class="terrainSpace"(click)="$event.stopPropagation()" [ngClass]="{'Sand': terrain.terrainColor === 'Sand',
+        }">
+            <div class="terrainSpace"(click)="$event.stopPropagation()" (click)="clickTerrainSpace(terrain)" [ngClass]="{'Sand': terrain.terrainColor === 'Sand',
                 'Concrete': terrain.terrainColor === 'Concrete',
                 'WetFlammableFuel': terrain.terrainColor === 'WetFlammableFuel',
                 'DryFlammableFuel': terrain.terrainColor === 'DryFlammableFuel',
@@ -22,4 +20,4 @@
             
         </th>
     </tr>
-</table>
+</table> -->

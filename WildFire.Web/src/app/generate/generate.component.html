@@ -1,11 +1,39 @@
 <div>
-    <form>
-        <input type="number" ng-model="terrainGenerateSize" name="Terrain Size" step="1" min="0" max="20">
-        <h1>{{terrainGenerateSize}}</h1>
+    <form [formGroup]="form" (submit)="changeSize(form)">
+        <label for="terrainGenerateSize">Size</label>
+        <input type="number" id="terrainGenerateSize" formControlName="terrainGenerateSize">
     </form>
+    <h3>{{terrainGenerateSize}}</h3>
     <button type="button" class="btn btn-success pull-right" (click)="generateRandomTerrain()"> Generate Random Terrain </button>
-
+    <button type="button" class="btn btn-success pull-right" (click)="generateEmptyTerrain()"> Generate Empty Terrain</button>
 </div>
 <div *ngIf="terrainGeneratedFlag">
+    <h2>Directions:</h2>
+    <h4>Click on the colored space to change the terrain type.</h4>
+    <h4>Click outisde of the color space to change the border and the fire state.</h4>
+    <table class="environment">
+        <tr *ngFor="let terrainList of env.Terrain; let terrainIndex = index">
+            <th *ngFor="let terrain of terrainList.Terrains" (click)="clickTableSpace(terrain)"
+            [ngClass]="{'noFire': terrain.FireState === 0,
+                'ignition': terrain.FireState === 1,
+                'growth': terrain.FireState === 2,
+                'fully-developed': terrain.FireState === 3,
+                'decay': terrain.FireState === 4
+            }"> {{getEnumFireState(terrain.FireState)}}
+                <div class="terrainSpace"(click)="$event.stopPropagation()" (click)="clickTerrainSpace(terrain)" [ngClass]="{'Sand': terrain.terrainColor === 'Sand',
+                    'Concrete': terrain.terrainColor === 'Concrete',
+                    'WetFlammableFuel': terrain.terrainColor === 'WetFlammableFuel',
+                    'DryFlammableFuel': terrain.terrainColor === 'DryFlammableFuel',
+                    'WetLessFlammableFuel': terrain.terrainColor === 'WetLessFlammableFuel',
+                    'DryLessFlammableFuel': terrain.terrainColor === 'DryLessFlammableFuel',
+                    'Water': terrain.terrainColor === 'Water',
+                    'notype': terrain.terrainColor === null || terrain.terrainColor === ''
+                }"
+                >{{terrain.terrainColor}}</div>
+                
+            </th>
+        </tr>
+    </table>
     <button type="button" class="btn btn-success pull-right" (click)="simulateBtnClick()"> Simulation Menu </button>
 </div>
+    `

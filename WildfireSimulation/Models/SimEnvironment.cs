@@ -6,11 +6,13 @@ namespace WildfireSimulation.Models
     public class SimEnvironment
     {
         public WeatherAudit WeatherHistory { get; set; }
-        public List<List<Terrain>> Terrain { get; set; }
+        public List<TerrainList> Terrain { get; set; }
+        //UPDATE THIS TO REPLACE THE TERRAIN LIST LIST BELOW
+        //public List<List<Terrain>> Terrain { get; set; }
         public int TurnCount { get; set; }
         public SimEnvironment()
         {
-            Terrain = new List<List<Terrain>>();  
+            Terrain = new List<TerrainList>();  
             TurnCount = 0;
         }
 
@@ -28,7 +30,7 @@ namespace WildfireSimulation.Models
                 {
                     Turn = TurnCount,
                     xCoordiante = rnd.Next(0, Terrain.Count),
-                    yCoordiante = rnd.Next(0, Terrain[0].Count),
+                    yCoordiante = rnd.Next(0, Terrain[0].Terrains.Count),
                     Radius = 1,
                     UserFlag = false
                 };
@@ -103,36 +105,36 @@ namespace WildfireSimulation.Models
             //update weather audit so that the latest entry is valid
             if (!WeatherHistory.lightningEvents[TurnCount].EmptyEventFlag)
             {
-                Terrain[WeatherHistory.lightningEvents[TurnCount].xCoordiante][WeatherHistory.lightningEvents[TurnCount].yCoordiante].FireIgnition();
+                Terrain[WeatherHistory.lightningEvents[TurnCount].xCoordiante].Terrains[WeatherHistory.lightningEvents[TurnCount].yCoordiante].FireIgnition();
             }
 
             for (int x = 0; x < Terrain.Count; x++)
             {
-                for (int y = 0; y < Terrain[x].Count; y++)
+                for (int y = 0; y < Terrain[x].Terrains.Count; y++)
                 {
-                    var fireSpreadProbability = Terrain[x][y].SpreadFireToAdjacentAgent();
+                    var fireSpreadProbability = Terrain[x].Terrains[y].SpreadFireToAdjacentAgent();
                     switch (WeatherHistory.WindEvents[TurnCount].Direction)
                     {
                         case DirectionEnum.None:
                             //above
                             if (rnd.NextDouble() > fireSpreadProbability)
                             {
-                                Terrain[x][y + 1].FireIgnition();
+                                Terrain[x].Terrains[y + 1].FireIgnition();
                             }
                             //right
                             if (rnd.NextDouble() > fireSpreadProbability)
                             {
-                                Terrain[x + 1][y].FireIgnition();
+                                Terrain[x + 1].Terrains[y].FireIgnition();
                             }
                             //down
                             if (rnd.NextDouble() > fireSpreadProbability)
                             {
-                                Terrain[x][y - 1].FireIgnition();
+                                Terrain[x].Terrains[y - 1].FireIgnition();
                             }
                             //left
                             if (rnd.NextDouble() > fireSpreadProbability)
                             {
-                                Terrain[x - 1][y].FireIgnition();
+                                Terrain[x - 1].Terrains[y].FireIgnition();
                             }
                             break;
 
@@ -140,39 +142,39 @@ namespace WildfireSimulation.Models
                             if (rnd.NextDouble() > fireSpreadProbability)
                             {
                                 int windDistance = (int)Math.Round((double)WeatherHistory.WindEvents[TurnCount].WindSpeed / 5.0) * 5;
-                                Terrain[x][y + windDistance].FireIgnition();
+                                Terrain[x].Terrains[y + windDistance].FireIgnition();
                             }
                             break;
                         case DirectionEnum.West:
                             if (rnd.NextDouble() > fireSpreadProbability)
                             {
                                 int windDistance = (int)Math.Round((double)WeatherHistory.WindEvents[TurnCount].WindSpeed / 5.0) * 5;
-                                Terrain[x + windDistance][y].FireIgnition();
+                                Terrain[x + windDistance].Terrains[y].FireIgnition();
                             }
                             break;
                         case DirectionEnum.South:
                             if (rnd.NextDouble() > fireSpreadProbability)
                             {
                                 int windDistance = (int)Math.Round((double)WeatherHistory.WindEvents[TurnCount].WindSpeed / 5.0) * 5;
-                                Terrain[x][y - windDistance].FireIgnition();
+                                Terrain[x].Terrains[y - windDistance].FireIgnition();
                             }
                             break;
                         case DirectionEnum.East:
                             if (rnd.NextDouble() > fireSpreadProbability)
                             {
                                 int windDistance = (int)Math.Round((double)WeatherHistory.WindEvents[TurnCount].WindSpeed / 5.0) * 5;
-                                Terrain[x - windDistance][y].FireIgnition();
+                                Terrain[x - windDistance].Terrains[y].FireIgnition();
                             }
                             break;
                     }
 
                     
 
-                    Terrain[x][y].FuelAmountUpdate();
-                    Terrain[x][y].AgentOnFireUpdate();
-                    Terrain[x][y].FireStateUpdate();
+                    Terrain[x].Terrains[y].FuelAmountUpdate();
+                    Terrain[x].Terrains[y].AgentOnFireUpdate();
+                    Terrain[x].Terrains[y].FireStateUpdate();
 
-                    Terrain[x][y].Rainfall(WeatherHistory.RainEvents[TurnCount].Rainfall);
+                    Terrain[x].Terrains[y].Rainfall(WeatherHistory.RainEvents[TurnCount].Rainfall);
                 }
             }
 
