@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { SimEnvironment } from "../models/SimEnvironment";
 import { Observable } from "rxjs";
 import { TerrainType } from '../enum/TerrainTypes.enum';
+import { SimulationRequest } from '../DTOs/SimulationRequest';
 
 @Injectable({
     providedIn: 'root'
@@ -23,8 +24,12 @@ export class WildFireService {
     }
 
     //Input is the simEnvironment, leave the turn attribute null
-    public putTurn(request: SimEnvironment): Observable<SimEnvironment> {
-        return this.http.put<SimEnvironment>(`${this.url}/Turn`, { params: { sim: request } });
+    // public putTurn(request: SimulationRequest): Observable<SimulationRequest> {
+    //     return this.http.put<SimulationRequest>(`${this.url}/Turn`, { sim: request }, this.httpOptions);
+    // }
+
+    public putTurn(request: any): Observable<any> {
+        return this.http.put<any>(`${this.url}/Turn`, { sim: request }, this.httpOptions);
     }
 
     //Input is the simEnvironment, turn attribute CANNOT be null must be greater than 0

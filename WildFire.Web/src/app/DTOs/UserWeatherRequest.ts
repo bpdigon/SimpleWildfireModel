@@ -3,10 +3,10 @@ import { RainEvent } from "../models/RainEvent";
 import { WindEvent } from "../models/WindEvent";
 
 export interface UserWeatherRequest{
-    lightningEvent: LightningEvent;
-    randomLightning: boolean;
-    windEvent: WindEvent;
-    randomWind: boolean;
-    rainEvent: RainEvent;
-    randomRain: boolean;
+    LightningEvent: LightningEvent;
+    RandomLightning: boolean;
+    WindEvent: WindEvent;
+    RandomWind: boolean;
+    RainEvent: RainEvent;
+    RandomRain: boolean;
 }
