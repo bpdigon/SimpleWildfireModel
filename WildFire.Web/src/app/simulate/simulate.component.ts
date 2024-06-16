@@ -6,6 +6,9 @@ import { FireState } from '../enum/FireState.enum';
 import { UserWeatherRequest } from '../DTOs/UserWeatherRequest';
 import { LightningEvent } from '../models/LightningEvent';
 import { SimulationRequest } from '../DTOs/SimulationRequest';
+import { WeatherAudit } from '../models/WeatherAudit';
+import { WindEvent } from '../models/WindEvent';
+import { RainEvent } from '../models/RainEvent';
 
 @Component({
   selector: 'app-simulate',
@@ -17,6 +20,12 @@ import { SimulationRequest } from '../DTOs/SimulationRequest';
 export class SimulateComponent implements OnInit{
   env!: SimEnvironment;
   request!: SimulationRequest;
+  loading: boolean = false;
+
+  lightningEvent: Array<LightningEvent> = [];
+  windEvent: Array<WindEvent> = [];
+  rainFall: Array<RainEvent> = [];
+
   constructor(
     private readonly service: WildFireService,
     private change: ChangeDetectorRef){}
@@ -40,17 +49,27 @@ export class SimulateComponent implements OnInit{
   }
 
   public executeTurn(){
+    this.loading = true;
     console.log("executeturn");
     console.log(this.env);
     this.request.Environment = this.env;
+    this.request.UserWeather = {} as UserWeatherRequest; //this.lightningEvent, this.windEvent, this.rainFall);
+
     console.log(this.request);
     this.service.putTurn(this.request).subscribe(res =>{
-      console.log(res);
-      this.service.setEnvironment(res.Environment);
+      console.log("turn request subscrition")
+      // console.log(res);
+      this.service.setEnvironment(res);
       this.env = this.service.getEnvironment();
-      console.log(this.env);
+      this.request.Turns = res.TurnCount;
+      // console.log("env");
+      // console.log(this.env);
+      // console.log("request");
+      // console.log(this.request);
+      this.loading = false;
+      this.change.detectChanges();
+
     });
-    
   }
 
 }

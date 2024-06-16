@@ -16,10 +16,12 @@ export class WildFireService {
     httpOptions: any;
 
     Environment!: SimEnvironment;
+    turn: number;
 
     constructor(private readonly http: HttpClient) {
 
         this.httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+        this.turn = 0;
 
     }
 
@@ -29,7 +31,7 @@ export class WildFireService {
     // }
 
     public putTurn(request: any): Observable<any> {
-        return this.http.put<any>(`${this.url}/Turn`, { sim: request }, this.httpOptions);
+        return this.http.put<any>(`${this.url}/Turn`, request, this.httpOptions);
     }
 
     //Input is the simEnvironment, turn attribute CANNOT be null must be greater than 0
@@ -55,10 +57,11 @@ export class WildFireService {
     }
 
     public getEnvironment(): any {
-        if (this.Environment != undefined) {
-            this.setTerrainColor();
-            return this.Environment;
-        }
+        // if (this.Environment != undefined) {
+            
+        // }
+        this.setTerrainColor();
+        return this.Environment;
     }
 
     public setTerrainColor(): void {

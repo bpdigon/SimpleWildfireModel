@@ -1,5 +1,15 @@
 <button type="button" class="btn btn-success pull-right" (click)="executeTurn()"> Execute Turn </button>
-
+<div *ngIf="loading" class="loading">
+    <div class="fire">
+        <div class="flames">
+           <div class="flame"></div>
+           <div class="flame"></div>
+           <div class="flame"></div>
+           <div class="flame"></div>
+        </div>
+        <div class="logs"></div>
+     </div>
+</div>
 <table class="environment">
     <tr *ngFor="let terrainList of env.Terrain; let terrainIndex = index">
         <th *ngFor="let terrain of terrainList.Terrains" (click)="clickTableSpace(terrain)"
