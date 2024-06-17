@@ -1,14 +1,13 @@
-<button type="button" class="btn btn-success pull-right" (click)="executeTurn()"> Execute Turn </button>
 <div *ngIf="loading" class="loading">
     <div class="fire">
         <div class="flames">
-           <div class="flame"></div>
-           <div class="flame"></div>
-           <div class="flame"></div>
-           <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
         </div>
         <div class="logs"></div>
-     </div>
+    </div>
 </div>
 <table class="environment">
     <tr *ngFor="let terrainList of env.Terrain; let terrainIndex = index">
@@ -29,7 +28,37 @@
                 'notype': terrain.terrainColor === null || terrain.terrainColor === ''
             }"
             >{{terrain.terrainColor}}</div>
+            <div>OnFirePercentage: {{terrain.AgentOnFirePercentage}}</div>
+            <div>WaterPercentage: {{terrain.WaterPercentage}}</div>
+            <div>PercentageOfFuel: {{terrain.PercentageOfFuel}}</div>
             
         </th>
     </tr>
 </table>
+<button type="button" class="btn btn-success pull-right" (click)="executeTurn()"> Execute Turn </button>
+<!-- 
+<button type="button" class="btn btn-success pull-right" (click)="scenario4()"> Scenario 4 Weather Rainfall 5% </button>
+<button type="button" class="btn btn-success pull-right" (click)="scenario5()"> Scenario 5 Weather East Wind, 10mph </button>
+
+
+
+
+
+<div class="weather">
+    <p>Random Lighting</p>
+    <input type="checkbox" name="randomLightning">
+
+    <p>Random Wind</p>
+    <input type="checkbox" name="randomWind">
+
+    <p>Random Rain</p>
+    <input type="checkbox" name="randomRain">
+    
+</div>
+
+
+
+<h1 *ngIf="randomLightning">light</h1>
+<h1 *ngIf="randomWind">wind</h1>
+<h1 *ngIf="randomRain">rain</h1>
+<button type="button" class="btn btn-success pull-right" (click)="testValue()"> test vals </button> -->

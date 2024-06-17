@@ -41,10 +41,14 @@ export class WildFireService {
 
     //Requires a size for the terrain square to be larger than 0 and not null
     public putGenerateTerrain(simNum: number): Observable<any> {
-        console.log("SIOMENUME", simNum);
+        console.log("simnum", simNum);
         var env = this.http.put(`${this.url}/GenerateTerrain`, simNum, this.httpOptions);
         this.setTerrainColor();
         return env;
+    }
+
+    public terrainUpdate(request: any): Observable<any>{
+        return this.http.put<any>(`${this.url}/terrainUpdate`, request, this.httpOptions);
     }
 
     // public putGenerateTerrain(simNum: number): Observable<any>{
@@ -95,10 +99,6 @@ export class WildFireService {
                         break;
 
                 }
-                console.log("color picker");
-                console.log(this.Environment.Terrain[i].Terrains[j].TerrainType)
-                console.log(this.Environment.Terrain[i].Terrains[j].TerrainType.toString())
-                console.log(TerrainType[this.Environment.Terrain[i].Terrains[j].TerrainType])
             }
         }
     }

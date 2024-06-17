@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bpdig\\SimpleWildfireModel\\WildfireSimulation\\WildfireSimulation.csproj": {}
+    "E:\\embrysummer2024\\SimpleWildfireModel\\WildfireSimulation\\WildfireSimulation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bpdig\\SimpleWildfireModel\\WildfireSimulation\\WildfireSimulation.csproj": {
+    "E:\\embrysummer2024\\SimpleWildfireModel\\WildfireSimulation\\WildfireSimulation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bpdig\\SimpleWildfireModel\\WildfireSimulation\\WildfireSimulation.csproj",
+        "projectUniqueName": "E:\\embrysummer2024\\SimpleWildfireModel\\WildfireSimulation\\WildfireSimulation.csproj",
         "projectName": "WildfireSimulation",
-        "projectPath": "C:\\Users\\bpdig\\SimpleWildfireModel\\WildfireSimulation\\WildfireSimulation.csproj",
-        "packagesPath": "C:\\Users\\bpdig\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bpdig\\SimpleWildfireModel\\WildfireSimulation\\obj\\",
+        "projectPath": "E:\\embrysummer2024\\SimpleWildfireModel\\WildfireSimulation\\WildfireSimulation.csproj",
+        "packagesPath": "C:\\Users\\man\\.nuget\\packages\\",
+        "outputPath": "E:\\embrysummer2024\\SimpleWildfireModel\\WildfireSimulation\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\bpdig\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\man\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -78,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -41,8 +41,14 @@ export class GenerateComponent implements OnInit{
   }
 
     public simulateBtnClick(): void{
-      this.service.setEnvironment(this.env);
-      this.router.navigateByUrl('/simulate');
+      console.log("updated environment", this.env);
+      
+      let request = { Environment: this.env};
+      this.service.terrainUpdate(request).subscribe(res =>{
+        console.log("after http", res);
+        this.service.setEnvironment(res);
+        this.router.navigateByUrl('/simulate');
+      });
     }
 
     public generateRandomTerrain(): void{
@@ -58,18 +64,15 @@ export class GenerateComponent implements OnInit{
     }
 
     public clickTerrainSpace(inp: any):void{
-      console.log("click space");
-      console.log(inp);
-      if(inp.TerrainType === 6){
-        inp.TerrainType = 0;
+      if(inp.TerrainType === 7){
+        inp.TerrainType = 1;
       }
       else{
         inp.TerrainType = inp.TerrainType + 1;
-        console.log(inp.TerrainType + 1)
       }
       inp.terrainColor = TerrainType[inp.TerrainType];
       console.log(inp);
-      inp.s
+      console.log(this.env);
 
     }
 

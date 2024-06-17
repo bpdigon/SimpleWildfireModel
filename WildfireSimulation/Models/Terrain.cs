@@ -107,16 +107,21 @@ namespace WildfireSimulation.Models
         /// <returns></returns>
         public double SpreadFireToAdjacentAgent()
         {
-            var perc = AgentOnFirePercentage * PercentageOfFuel;
-            if (perc >= WaterPercentage)
+            if(FireState != FireStateEnum.NoFire)
             {
-                perc -= WaterPercentage;
+
+                var perc = AgentOnFirePercentage * PercentageOfFuel;
+                if (perc >= WaterPercentage)
+                {
+                    perc -= WaterPercentage;
+                }
+                else 
+                {
+                    perc = 0;
+                }
+                return perc;
             }
-            else 
-            {
-                perc = 0;
-            }
-            return perc;
+            return 0;
         }
 
         /// <summary>
@@ -137,22 +142,27 @@ namespace WildfireSimulation.Models
         /// </summary>
         public void FireStateUpdate()
         {
-            if (AgentOnFirePercentage >= 0.25 && AgentOnFirePercentage < 0.6)
+            if(FireState != FireStateEnum.NoFire)
             {
-                FireState = FireStateEnum.Growth;
-            }
-            else if (AgentOnFirePercentage >= 0.6)
-            {
-                FireState = FireStateEnum.FullyDeveloped;
-            }
+                if (AgentOnFirePercentage >= 0.25 && AgentOnFirePercentage < 0.6)
+                {
+                    FireState = FireStateEnum.Growth;
+                }
+                else if (AgentOnFirePercentage >= 0.6)
+                {
+                    FireState = FireStateEnum.FullyDeveloped;
+                }
 
-            if (PercentageOfFuel == 0)
-            {
-                FireState = FireStateEnum.NoFire;
-            }
-            else if (PercentageOfFuel <= 0.4 && FireState != FireStateEnum.NoFire)
-            {
-                FireState = FireStateEnum.Decay;
+                if (PercentageOfFuel <= 0.4 && FireState != FireStateEnum.NoFire)
+                {
+                    FireState = FireStateEnum.Decay;
+                
+                }
+                
+                if (AgentOnFirePercentage == 0 && FireState == FireStateEnum.Decay)
+                {
+                    FireState = FireStateEnum.NoFire;
+                }
             }
 
         }
@@ -169,7 +179,7 @@ namespace WildfireSimulation.Models
             }
             else
             {
-                PercentageOfFuel -=  AgentOnFirePercentage * Math.Abs(AgentOnFirePercentage);
+                PercentageOfFuel -=  AgentOnFirePercentage * Math.Abs(FireSpreadRateDictionary[FireState]);
 
             }
         }

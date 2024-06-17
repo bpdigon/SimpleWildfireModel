@@ -2,6 +2,6 @@
 {
     public class RainEvent : Event
     {
-        public int? Rainfall { get; set; }
+        public double? Rainfall { get; set; }
     }
 }

@@ -40,5 +40,21 @@ namespace WildfireSimulation.Services
 
             return env;
         }
+
+        public SimEnvironment TerrainUpdate(SimEnvironment env)
+        {
+            var newEnv = new SimEnvironment();
+            for(int x = 0; x < env.Terrain.Count(); x++)
+            {
+                newEnv.Terrain.Add(new TerrainList());
+                for (int y = 0; y < env.Terrain[x].Terrains.Count(); y++)
+                {
+                    newEnv.Terrain[x].Terrains.Add(new Terrain(env.Terrain[x].Terrains[y].TerrainType));
+                    newEnv.Terrain[x].Terrains[y].FireState = env.Terrain[x].Terrains[y].FireState;
+                }
+            }
+
+            return newEnv;
+        }
     }
 }

@@ -1,3 +1,3 @@
 export interface RainEvent extends Event{
-    rainfall: number;
+    Rainfall: number;
 }

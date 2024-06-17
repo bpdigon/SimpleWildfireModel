@@ -90,6 +90,23 @@ namespace WildfireSimulation.Controllers
             }
         }
 
+        [HttpPut("terrainUpdate")]
+        [ProducesResponseType(typeof(SimEnvironment), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> TerrainUpdate([FromBody] SimulationRequest sim)
+        {
+            try
+            {
+                return Ok(_service.TerrainUpdate(sim.Environment));
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("Test")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

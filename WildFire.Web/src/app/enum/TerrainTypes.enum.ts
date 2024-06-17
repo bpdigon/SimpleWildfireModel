@@ -1,5 +1,5 @@
 export enum TerrainType{
-    Sand,
+    Sand = 1,
     Concrete,
     WetFlammableFuel,
     DryFlammableFuel,

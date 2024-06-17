@@ -152,3 +152,67 @@ body {
       bottom:150%;
    }
 }
+.environment {
+    min-width: 50vw;
+    min-height: 75vh;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+.terrainSpace {
+    min-width: 20vw;
+    min-height: 20vh;
+    z-index: 9999;
+}
+
+.Sand {
+    background-color: yellow;
+}
+
+.Concrete {
+    background-color: gray;
+}
+
+.WetFlammableFuel {
+    background-color: green;
+}
+
+.DryFlammableFuel {
+    background-color: burlywood;
+}
+
+.WetLessFlammableFuel {
+    background-color: darkgreen;
+}
+
+.DryLessFlammableFuel {
+    background-color: brown;
+}
+
+.Water {
+    background-color: blue;
+}
+
+.notype {
+    background-color: black;
+}
+
+.noFire{
+    border: 5px black groove;
+}
+.ignition{
+    border: 5px yellow dotted;
+}
+.growth{
+    border: 5px orange double;
+}
+.fully-developed{
+    border: 7px red inset;
+}
+.decay{
+    border: 5px brown dashed;
+}
