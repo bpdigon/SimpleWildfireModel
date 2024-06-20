@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WildfireSimulation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af9575636ac43810f60bb436310d83171dd87522")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3146ae5714610a3272fb28e7da1320947bc854a9")]
 [assembly: System.Reflection.AssemblyProductAttribute("WildfireSimulation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WildfireSimulation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

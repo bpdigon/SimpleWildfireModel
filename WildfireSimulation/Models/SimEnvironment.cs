@@ -114,13 +114,13 @@ namespace WildfireSimulation.Models
                 for (int y = 0; y < Terrain[x].Terrains.Count; y++)
                 {
                     var fireSpreadProbability = Terrain[x].Terrains[y].SpreadFireToAdjacentAgent();
-                    //var windEnum = DirectionEnum.None;
+                    var windEnum = DirectionEnum.None;
                     if (WeatherHistory != null && WeatherHistory.WindEvents.Count() > 0)
                     {
                         windEnum = (DirectionEnum)WeatherHistory.WindEvents[TurnCount].Direction;
                     }
                     //scenario 5
-                    windEnum = DirectionEnum.East;
+                    //windEnum = DirectionEnum.East;
                     switch (windEnum)
                     {
                         case DirectionEnum.None:
